@@ -2,18 +2,22 @@ const {Actions} = require('nylas-exports');
 const electron = require('electron');
 
 module.exports = {
-  activate: (pluginUpdater, state) => {
-    console.log(pluginUpdater);
-    pluginUpdater.state = state;
-    if (pluginUpdater.state === 'NEW_RELEASE') {
-      return pluginUpdater.displayNotification(process.env.PLUGIN_AVAILABLE_VER);
-    } else if (pluginUpdater.state === 'THANKS') {
-      return pluginUpdater.displayThanksNotification();
+  activate: function activate(state) {
+    this.state = state;
+    console.log('this - activate');
+    console.log(this);
+    this._unlisten = Actions.notificationActionTaken.listen(this._onNotificationActionTaken,
+      this);
+    console.log(this);
+    if (this.state === 'NEW_RELEASE') {
+      return this.displayNotification(process.env.PLUGIN_AVAILABLE_VER);
+    } else if (this.state === 'THANKS') {
+      return this.displayThanksNotification();
     }
     return false;
   },
 
-  displayNotification: () => {
+  displayNotification: function displayNotification() {
     // Post Notification Types: `info`, `developer`, `error`, or `success`
     Actions.postNotification({
       type: 'developer',
@@ -36,7 +40,7 @@ module.exports = {
     });
   },
 
-  displayThanksNotification: () => {
+  displayThanksNotification: function displayThanksNotification() {
     Actions.postNotification({
       type: 'developer',
       tag: 'app-update',
@@ -58,11 +62,13 @@ module.exports = {
     });
   },
 
-  deactivate: () => {
-    this._unlisten();
+  deactivate: function deactivate() {
+    console.log(this);
+    return this._unlisten();
   },
 
-  _onNotificationActionTaken: ({notification, action}) => {
+  _onNotificationActionTaken: function notify({notification, action}) {
+    console.log(notification);
     if (action.id === 'release-bar:view-plugin-changelog') {
       electron.shell.openExternal(process.env.PLUGIN_AVAILABLE_URL);
       return false;

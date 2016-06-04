@@ -48,11 +48,11 @@ module.exports = {
           console.log(`New release available at ${releaseURL}!`);
           // Make sure to display thank you message after updating:
           fs.copySync(`${thanksFile}-true.json`, `${thanksFile}.json`);
-          return pluginUpdater.activate(pluginUpdater, 'NEW_RELEASE');
+          return pluginUpdater.activate('NEW_RELEASE');
         } else if (avaVer === curVer && displayThanksNotification === true) {
           // Only display the thanks notification once
           fs.copySync(`${thanksFile}-false.json`, `${thanksFile}.json`);
-          return pluginUpdater.activate(pluginUpdater, 'THANKS');
+          return pluginUpdater.activate('THANKS');
         }
       } catch (e) {
         console.warn('No Response from Github API!');
