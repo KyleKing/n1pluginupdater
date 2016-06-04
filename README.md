@@ -26,7 +26,7 @@ Alerts users that an updated plugin has been released using the N1 official noti
   },
   ```
   
-3. **OPTIONAL**: *BREAK IT* and test it out. Try hardcoding values you know won't work and see the notification appear after refreshing Nylas:
+4. **OPTIONAL**: *BREAK IT* and test it out. Try hardcoding values you know won't work and see the notification appear after refreshing Nylas:
   ```jsx
   activate: () => {
     n1pluginupdater.checkForUpdate({
@@ -36,6 +36,14 @@ Alerts users that an updated plugin has been released using the N1 official noti
     });
     // Other code...etc.
   },
+  ```
+  
+5. For good measure, turn off the listeners:
+  ```jsx
+  deactivate: () => {
+    n1pluginupdater.deactivate();
+    // etc.
+  }
   ```
 
 ## The Fine Print
