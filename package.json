@@ -6,12 +6,15 @@
   "scripts": {
     "test": "./node_modules/eslint/bin/eslint.js . --ext .js,.jsx,.es6"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleKing/n1pluginupdater"
+  },
   "author": "Kyle King",
   "license": "MIT",
   "dependencies": {
     "fs-extra": "^0.30.0",
     "github": "^0.2.4",
-    "parent-package-json": "^1.1.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

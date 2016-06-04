@@ -2,7 +2,12 @@ const _ = require('underscore');
 const settings = require(`${__dirname}/settings`);
 const pluginUpdater = require(`${__dirname}/pluginUpdater`);
 
+// // Ended up not working? - will revisit
+// // https://www.npmjs.com/package/parent-package-json
+// const parent = require('parent-package-json');
+
 module.exports = {
+
   // Activate is called when the package is loaded. If your package previously
   // saved state using `serialize` it is provided.
   //
@@ -17,7 +22,9 @@ module.exports = {
         " repositoryName, and currentVersion");
     }
   },
+
   deactivate: () => {
     pluginUpdater.deactivate();
   },
+
 }
