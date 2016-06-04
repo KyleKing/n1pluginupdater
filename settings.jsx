@@ -47,13 +47,12 @@ module.exports = {
           fs.copySync(`${thanksFile}-false.json`, `${thanksFile}.json`);
           return pluginUpdater.activate('THANKS', resData);
         }
-        console.log('n1pluginupdater: No update notification to show')
+        // console.log('n1pluginupdater: No update notification to show')
         return true;
       } catch (e) {
         console.warn('No Response from Github API!');
         return e
       }
-      return true;
     });
   },
 }
