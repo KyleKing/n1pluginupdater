@@ -10,7 +10,7 @@ Alerts users that an updated plugin has been released using the N1 official noti
 
 2. Require the package.json information and this module (Somewhere at the top of your `main.jsx` file):
   ```jsx
-  const config = require(`${__dirname}/../package.json`); # or whatever the path to package.json is
+  const config = require(`${__dirname}/../package.json`); // the path to your package.json
   const n1pluginupdater = require('n1pluginupdater');
   ```
 
@@ -22,7 +22,7 @@ Alerts users that an updated plugin has been released using the N1 official noti
       repositoryOwner: "your_Github_Username",
       currentVersion: config.version,
     });
-    # Other code...etc.
+    // Other code...etc.
   },
   ```
   
@@ -34,7 +34,7 @@ Alerts users that an updated plugin has been released using the N1 official noti
       repositoryOwner: "colinking",
       currentVersion: "1.3.0",
     });
-    # Other code...etc.
+    // Other code...etc.
   },
   ```
 
