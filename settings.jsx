@@ -21,11 +21,6 @@ module.exports = {
       },
     });
 
-    // // Make parent package.json available globally
-    // process.env.repositoryOwner = pluginData.repositoryOwner;
-    process.env.repositoryName = pluginData.repositoryName;
-    // process.env.currentVersion = pluginData.currentVersion;
-
     github.releases.listReleases({
       owner: pluginData.repositoryOwner,
       repo: pluginData.repositoryName,
@@ -34,26 +29,26 @@ module.exports = {
       if (err) console.log(err);
       try {
         // Decipher response:
-        const curVer = pluginData.currentVersion;
-        const avaVer = res[0].tag_name;
-        const releaseURL = res[0].html_url;
-        const downloadURL = res[0].assets[0].browser_download_url;
-        // Update globals:
-        process.env.PLUGIN_CURRENT_VER = curVer;
-        process.env.PLUGIN_AVAILABLE_VER = avaVer;
-        process.env.PLUGIN_AVAILABLE_URL = releaseURL;
-        process.env.PLUGIN_DOWNLOAD_URL = downloadURL;
+        const resData = {
+          curVer: pluginData.currentVersion,
+          avaVer: res[0].tag_name,
+          releaseURL: res[0].html_url,
+          downloadURL: res[0].assets[0].browser_download_url,
+          repositoryName: pluginData.repositoryName,
+        };
         // Determine updated-ness of plugin
-        if (avaVer !== curVer && res[0].draft === false) {
-          console.log(`New release available at ${releaseURL}!`);
+        if (resData.avaVer !== resData.curVer && res[0].draft === false) {
+          console.log(`New release available at ${resData.releaseURL}!`);
           // Make sure to display thank you message after updating:
           fs.copySync(`${thanksFile}-true.json`, `${thanksFile}.json`);
-          return pluginUpdater.activate('NEW_RELEASE');
-        } else if (avaVer === curVer && displayThanksNotification === true) {
+          return pluginUpdater.activate('NEW_RELEASE', resData);
+        } else if (resData.avaVer === resData.curVer && displayThanksNotification === true) {
           // Only display the thanks notification once
           fs.copySync(`${thanksFile}-false.json`, `${thanksFile}.json`);
-          return pluginUpdater.activate('THANKS');
+          return pluginUpdater.activate('THANKS', resData);
         }
+        console.log('n1pluginupdater: No update notification to show')
+        return true;
       } catch (e) {
         console.warn('No Response from Github API!');
         return e

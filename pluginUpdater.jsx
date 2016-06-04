@@ -2,15 +2,13 @@ const {Actions} = require('nylas-exports');
 const electron = require('electron');
 
 module.exports = {
-  activate: function activate(state) {
+  activate: function activate(state, resData) {
+    this.resData = resData;
     this.state = state;
-    console.log('this - activate');
-    console.log(this);
     this._unlisten = Actions.notificationActionTaken.listen(this._onNotificationActionTaken,
       this);
-    console.log(this);
     if (this.state === 'NEW_RELEASE') {
-      return this.displayNotification(process.env.PLUGIN_AVAILABLE_VER);
+      return this.displayNotification(this.resData.avaVer);
     } else if (this.state === 'THANKS') {
       return this.displayThanksNotification();
     }
@@ -23,8 +21,8 @@ module.exports = {
       type: 'developer',
       tag: 'app-update',
       sticky: true,
-      message: `An update to ${process.env.repositoryName}  (Plugin) is ` +
-        ` available (${process.env.PLUGIN_AVAILABLE_VER} - click to update now!)`,
+      message: `An update to ${this.resData.repositoryName}  (Plugin) is ` +
+        ` available (${this.resData.avaVer} - click to update now!)`,
       icon: 'fa-flag',
       actions: [
         {
@@ -45,7 +43,7 @@ module.exports = {
       type: 'developer',
       tag: 'app-update',
       sticky: true,
-      message: `You're running the latest version of ${process.env.repositoryName}` +
+      message: `You're running the latest version of ${this.resData.repositoryName}` +
         ` (Plugin) - view the changelog to see what's new.`,
       icon: 'fa-magic',
       actions: [
@@ -63,6 +61,7 @@ module.exports = {
   },
 
   deactivate: function deactivate() {
+    console.log('Deactivating n1pluginupdater:');
     console.log(this);
     return this._unlisten();
   },
@@ -70,11 +69,11 @@ module.exports = {
   _onNotificationActionTaken: function notify({notification, action}) {
     console.log(notification);
     if (action.id === 'release-bar:view-plugin-changelog') {
-      electron.shell.openExternal(process.env.PLUGIN_AVAILABLE_URL);
+      electron.shell.openExternal(this.resData.releaseURL);
       return false;
     }
     if (action.id === 'release-bar:install-plugin-update') {
-      electron.shell.openExternal(process.env.PLUGIN_DOWNLOAD_URL);
+      electron.shell.openExternal(this.resData.downloadURL);
       return true;
     }
     return false;
