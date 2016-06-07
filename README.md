@@ -45,6 +45,16 @@ Alerts users that an updated plugin has been released using the N1 official noti
     // etc.
   }
   ```
+  
+6. **Make your own style**. In your `main.less` or other stylesheet) add:
+  ```less
+  // Style the plugin notification bar to differentiate from the
+  // N! regular updates and other plugin updates
+  .notifications-sticky .notification-developer {
+  	background-color: #60CBF1 !important;
+  }
+  // This colors the notification bar bright blue like the screenshot above
+  ```
 
 ## The Fine Print
 
