@@ -6,9 +6,11 @@ Alerts users that an updated plugin has been released using the N1 official noti
 
 ## How to Install
 
+[![NPM](https://nodei.co/npm/n1pluginupdater.png)](https://nodei.co/npm/n1pluginupdater/)
+
 1. Add this npm module: `npm install n1pluginupdater --save`
 
-2. Require the package.json information and this module (Somewhere at the top of your `main.jsx` file):
+2. Require the package.json information and this module (somewhere at the top of your `main.jsx` file):
   ```jsx
   const config = require(`${__dirname}/../package.json`); // the path to your package.json
   const n1pluginupdater = require('n1pluginupdater');
