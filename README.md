@@ -6,9 +6,11 @@ Alerts users that an updated plugin has been released using the N1 official noti
 
 ## How to Install
 
+[![NPM](https://nodei.co/npm/n1pluginupdater.png)](https://nodei.co/npm/n1pluginupdater/)
+
 1. Add this npm module: `npm install n1pluginupdater --save`
 
-2. Require the package.json information and this module (Somewhere at the top of your `main.jsx` file):
+2. Require the package.json information and this module (somewhere at the top of your `main.jsx` file):
   ```jsx
   const config = require(`${__dirname}/../package.json`); // the path to your package.json
   const n1pluginupdater = require('n1pluginupdater');
@@ -44,6 +46,16 @@ Alerts users that an updated plugin has been released using the N1 official noti
     n1pluginupdater.deactivate();
     // etc.
   }
+  ```
+  
+6. **Make your own style**. In your `main.less` or other stylesheet) add:
+  ```less
+  // Style the plugin notification bar to differentiate from the
+  // N! regular updates and other plugin updates
+  .notifications-sticky .notification-developer {
+  	background-color: #60CBF1 !important;
+  }
+  // This colors the notification bar bright blue like the screenshot above
   ```
 
 ## The Fine Print
