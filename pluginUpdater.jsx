@@ -2,7 +2,7 @@ const {Actions} = require('nylas-exports');
 const electron = require('electron');
 
 module.exports = {
-  activate: function activate(state, resData) {
+  activate(state, resData) {
     this.resData = resData;
     this.state = state;
     this._unlisten = Actions.notificationActionTaken.listen(this._onNotificationActionTaken,
@@ -15,7 +15,7 @@ module.exports = {
     return false;
   },
 
-  displayNotification: function displayNotification() {
+  displayNotification() {
     // Post Notification Types: `info`, `developer`, `error`, or `success`
     Actions.postNotification({
       type: 'developer',
@@ -38,7 +38,7 @@ module.exports = {
     });
   },
 
-  displayThanksNotification: function displayThanksNotification() {
+  displayThanksNotification() {
     Actions.postNotification({
       type: 'developer',
       tag: 'app-update',
@@ -60,13 +60,13 @@ module.exports = {
     });
   },
 
-  deactivate: function deactivate() {
+  deactivate() {
+    // That awkward moment that boilerplate code creates a bug
     console.log('Deactivating n1pluginupdater:');
-    console.log(this);
-    return this._unlisten();
+    return true;
   },
 
-  _onNotificationActionTaken: function notify({notification, action}) {
+  _onNotificationActionTaken({notification, action}) {
     console.log(notification);
     if (action.id === 'release-bar:view-plugin-changelog') {
       electron.shell.openExternal(this.resData.releaseURL);
