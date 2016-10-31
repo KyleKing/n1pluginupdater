@@ -1,3 +1,7 @@
+# Deprecated - only works on Nylas v0.4.52 or earlier
+
+N1 changed the notification system to add support for a greater array of notification types. Unfortunately this new system now uses internal states to trigger notifications rather than a callable action
+
 # n1pluginupdater
 
 Alerts users that an updated plugin has been released using the N1 official notification bar!
@@ -27,7 +31,7 @@ Alerts users that an updated plugin has been released using the N1 official noti
     // Other code...etc.
   },
   ```
-  
+
 4. **OPTIONAL**: *BREAK IT* and test it out. Try hardcoding values you know won't work and see the notification appear after refreshing Nylas:
   ```jsx
   activate: () => {
@@ -39,7 +43,7 @@ Alerts users that an updated plugin has been released using the N1 official noti
     // Other code...etc.
   },
   ```
-  
+
 5. For good measure, turn off the listeners:
   ```jsx
   deactivate: () => {
@@ -47,7 +51,7 @@ Alerts users that an updated plugin has been released using the N1 official noti
     // etc.
   }
   ```
-  
+
 6. **Make your own style**. In your `main.less` or other stylesheet) add:
   ```less
   // Style the plugin notification bar to differentiate from the
